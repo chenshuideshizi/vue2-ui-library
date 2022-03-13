@@ -1,0 +1,109 @@
+<template>
+    <transition name="loading-fade" @after-leave="handleAfterLeave">
+        <div
+            v-show="visible"
+            class="cus-loading-mask"
+            :class="[
+                customClass
+            ]"
+        >
+            <div class="cus-loading-spinner">
+                <svg class="circular" viewBox="0 0 50 50">
+                    <circle class="path" cx="25" cy="25" r="20" fill="none" />
+                </svg>
+                <p v-if="text" class="cus-loading-text">{{ text }}</p>
+            </div>
+        </div>
+    </transition>
+</template>
+
+<script>
+export default {
+    name: 'Loading',
+    data() {
+        return {
+            text: '',
+            visible: false,
+            customClass: ''
+        }
+    },
+    methods: {
+        handleAfterLeave() {
+            this.$emit('after-leave')
+        },
+        setText(text) {
+            this.text = text
+        }
+    }
+}
+</script>
+
+<style lang="less" scoped>
+.cus-loading-mask {
+    position: absolute;
+    z-index: 2000;
+    background-color: rgba(255, 255, 255, .9);
+    margin: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: opacity 0.3s;
+    &.is-fullscreen {
+        position: fixed;
+    }
+}
+.cus-loading-spinner {
+    top: 50%;
+    margin-top: -21px;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+}
+
+.cus-loading-text {
+    color: #409eff;
+    font-size: 14px;
+}
+
+.circular {
+    width: 50px;
+    height: 50px;
+    animation: loading-rotate 2s linear infinite;
+    .path {
+        animation: loading-dash 1.5s ease-in-out infinite;
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: 0;
+        stroke-width: 2;
+        stroke: #409eff;
+        stroke-linecap: round;
+    }
+}
+
+@keyframes loading-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -40px;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -120px;
+  }
+}
+</style>
+
+<style lang="less">
+.cus-loading-parent--relative {
+    position: relative!important;
+}
+</style>

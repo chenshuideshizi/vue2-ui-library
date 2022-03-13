@@ -1,0 +1,7 @@
+{
+  "canvas-draw-shape": "./src/ui-library/canvas-draw-shape",
+  "v-button": "./src/ui-library/v-button",
+  "mark-picture": "./src/ui-library/mark-picture",
+  "scale-box": "./src/ui-library/scale-box",
+  "loading": "./src/ui-library/loading"
+}
